@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quran/api/api.dart';
 import 'package:quran/utils/colors.dart';
 
-class SuraList extends StatelessWidget {
+class SuraList extends StatefulWidget {
   const SuraList({Key? key}) : super(key: key);
+
+  @override
+  _SuraListState createState() => _SuraListState();
+}
+
+class _SuraListState extends State<SuraList> {
+  @override
+  void initState() {
+    super.initState();
+    getAllChapters();
+  }
 
   @override
   Widget build(BuildContext context) {
