@@ -88,7 +88,7 @@ class Tag extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(
             vertical: 10.0,
-            horizontal: 20.0,
+            horizontal: 23.0,
           ),
           child: Text(
             title,
