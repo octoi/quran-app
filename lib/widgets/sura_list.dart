@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/api/api.dart';
+import 'package:quran/model/chapter.dart';
 import 'package:quran/utils/colors.dart';
 
 class SuraList extends StatefulWidget {
@@ -11,107 +12,28 @@ class SuraList extends StatefulWidget {
 }
 
 class _SuraListState extends State<SuraList> {
+  List<QuranChapter> quranChapters = [];
+
   @override
   void initState() {
     super.initState();
-    getAllChapters();
+    getAllChapters().then((chapters) {
+      setState(() {
+        quranChapters = chapters;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-        SuraCard(
-          title: 'Al-Fatihah',
-          page: '1',
-          verses: 7,
-        ),
-      ],
+      children: quranChapters.map((chapter) {
+        return SuraCard(
+          title: chapter.surah,
+          page: chapter.pages,
+          verses: chapter.verses,
+        );
+      }).toList(),
     );
   }
 }

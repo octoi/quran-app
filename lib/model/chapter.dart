@@ -1,5 +1,5 @@
 class QuranChapter {
-  String id;
+  int id;
   String surah;
   String simpleName;
   String pages;
