@@ -14,7 +14,7 @@ class AppName extends StatelessWidget {
           'Q',
           style: GoogleFonts.nunito(
             color: appGreen,
-            fontSize: 22.0,
+            fontSize: 26.0,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -22,7 +22,7 @@ class AppName extends StatelessWidget {
           'uran',
           style: GoogleFonts.nunito(
             color: appDark,
-            fontSize: 22.0,
+            fontSize: 26.0,
             fontWeight: FontWeight.w600,
           ),
         ),
