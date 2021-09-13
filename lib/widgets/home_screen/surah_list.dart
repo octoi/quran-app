@@ -19,7 +19,10 @@ class SurahList extends StatelessWidget {
             builder: (ctx, surathsData, _) {
               return Column(
                 children: surathsData.suraths.map((surah) {
-                  return SuraCard(surah: surah);
+                  return SuraCard(
+                    key: ValueKey(surah.id),
+                    surah: surah,
+                  );
                 }).toList(),
               );
             },
@@ -30,32 +33,27 @@ class SurahList extends StatelessWidget {
   }
 }
 
-class SuraCard extends StatefulWidget {
+class SuraCard extends StatelessWidget {
   final Surah surah;
 
   const SuraCard({Key? key, required this.surah}) : super(key: key);
 
   @override
-  _SuraCardState createState() => _SuraCardState();
-}
-
-class _SuraCardState extends State<SuraCard> {
-  bool isFavorite = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    setState(() => isFavorite = widget.surah.isFavorite);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    void updateFavorite() {
+      bool _isFavorite = !surah.isFavorite;
+      Provider.of<Suraths>(context, listen: false).updateFavorite(
+        surah.id,
+        _isFavorite,
+      );
+    }
+
     return Material(
       elevation: 0.5,
       borderRadius: BorderRadius.circular(10.0),
       child: GestureDetector(
         onTap: () {
-          print(widget.surah.surah);
+          print(surah.surah);
         },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5.0),
@@ -74,7 +72,7 @@ class _SuraCardState extends State<SuraCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.surah.surah,
+                    surah.surah,
                     style: GoogleFonts.nunito(
                       color: appDark,
                       fontSize: 18.0,
@@ -83,7 +81,7 @@ class _SuraCardState extends State<SuraCard> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    'page: ${widget.surah.pages}, verses: ${widget.surah.verses}',
+                    'page: ${surah.pages}, verses: ${surah.verses}',
                     style: GoogleFonts.nunito(
                       color: appGray,
                       fontSize: 15.0,
@@ -95,11 +93,9 @@ class _SuraCardState extends State<SuraCard> {
                 color: appGreen,
                 iconSize: 30.0,
                 icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_outline,
+                  surah.isFavorite ? Icons.favorite : Icons.favorite_outline,
                 ),
-                onPressed: () {
-                  setState(() => isFavorite = !isFavorite);
-                },
+                onPressed: updateFavorite,
               ),
             ],
           ),

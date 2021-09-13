@@ -59,4 +59,20 @@ class Suraths with ChangeNotifier {
     _searchQuery = newSearchQuery.toLowerCase();
     notifyListeners();
   }
+
+  void updateFavorite(int id, bool isFavorite) {
+    int _surahIdx = _suraths.indexWhere((surah) => surah.id == id);
+    Surah _surah = _suraths[_surahIdx];
+    _suraths[_surahIdx] = Surah(
+      id: _surah.id,
+      surah: _surah.surah,
+      simpleName: _surah.simpleName,
+      pages: _surah.pages,
+      origin: _surah.origin,
+      verses: _surah.verses,
+      isFavorite: isFavorite,
+    );
+
+    notifyListeners();
+  }
 }
