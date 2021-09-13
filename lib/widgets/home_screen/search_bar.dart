@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quran/model/suraths.dart';
 import 'package:quran/utils/constants.dart';
 
 class SearchBar extends StatelessWidget {
@@ -7,6 +9,11 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     String _searchInputValue = '';
     double _borderRadius = 12.0;
+
+    void handleInput(String newVal) {
+      _searchInputValue = newVal;
+      Provider.of<Suraths>(context, listen: false).search(_searchInputValue);
+    }
 
     return Material(
       shadowColor: Colors.white,
@@ -30,9 +37,7 @@ class SearchBar extends StatelessWidget {
           ),
         ),
         cursorColor: appDark,
-        onChanged: (newVal) {
-          _searchInputValue = newVal;
-        },
+        onChanged: handleInput,
       ),
     );
   }
