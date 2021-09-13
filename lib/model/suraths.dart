@@ -8,6 +8,7 @@ class Surah {
   String pages;
   String origin;
   int verses;
+  bool isFavorite;
 
   Surah({
     required this.id,
@@ -16,6 +17,7 @@ class Surah {
     required this.pages,
     required this.origin,
     required this.verses,
+    this.isFavorite = false,
   });
 }
 
@@ -24,19 +26,19 @@ class Suraths with ChangeNotifier {
 
   // utilities
   bool haveAnyError = false;
-  String searchQuery = '';
+  String _searchQuery = '';
 
   List<Surah> get suraths {
-    if (searchQuery.trim().length == 0) {
+    if (_searchQuery.trim().length == 0) {
       return [..._suraths];
     }
 
     return _suraths.where((surah) {
-      return surah.simpleName.toLowerCase().contains(searchQuery) ||
-          surah.surah.toLowerCase().contains(searchQuery) ||
-          surah.pages.toLowerCase().contains(searchQuery) ||
-          surah.origin.contains(searchQuery) ||
-          surah.verses.toString().toLowerCase().contains(searchQuery);
+      return surah.simpleName.toLowerCase().contains(_searchQuery) ||
+          surah.surah.toLowerCase().contains(_searchQuery) ||
+          surah.pages.toLowerCase().contains(_searchQuery) ||
+          surah.origin.contains(_searchQuery) ||
+          surah.verses.toString().toLowerCase().contains(_searchQuery);
     }).toList();
   }
 
@@ -54,7 +56,7 @@ class Suraths with ChangeNotifier {
   }
 
   void search(String newSearchQuery) {
-    searchQuery = newSearchQuery.toLowerCase();
+    _searchQuery = newSearchQuery.toLowerCase();
     notifyListeners();
   }
 }

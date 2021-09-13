@@ -19,11 +19,7 @@ class SurahList extends StatelessWidget {
             builder: (ctx, surathsData, _) {
               return Column(
                 children: surathsData.suraths.map((surah) {
-                  return SuraCard(
-                    title: surah.surah,
-                    page: surah.pages,
-                    verses: surah.verses,
-                  );
+                  return SuraCard(surah: surah);
                 }).toList(),
               );
             },
@@ -35,16 +31,9 @@ class SurahList extends StatelessWidget {
 }
 
 class SuraCard extends StatefulWidget {
-  final String title;
-  final String page;
-  final int verses;
+  final Surah surah;
 
-  const SuraCard({
-    Key? key,
-    required this.title,
-    required this.page,
-    required this.verses,
-  }) : super(key: key);
+  const SuraCard({Key? key, required this.surah}) : super(key: key);
 
   @override
   _SuraCardState createState() => _SuraCardState();
@@ -54,13 +43,19 @@ class _SuraCardState extends State<SuraCard> {
   bool isFavorite = false;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() => isFavorite = widget.surah.isFavorite);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       elevation: 0.5,
       borderRadius: BorderRadius.circular(10.0),
       child: GestureDetector(
         onTap: () {
-          print(widget.title);
+          print(widget.surah.surah);
         },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5.0),
@@ -79,7 +74,7 @@ class _SuraCardState extends State<SuraCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.title,
+                    widget.surah.surah,
                     style: GoogleFonts.nunito(
                       color: appDark,
                       fontSize: 18.0,
@@ -88,7 +83,7 @@ class _SuraCardState extends State<SuraCard> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    'page: ${widget.page}, verses: ${widget.verses}',
+                    'page: ${widget.surah.pages}, verses: ${widget.surah.verses}',
                     style: GoogleFonts.nunito(
                       color: appGray,
                       fontSize: 15.0,

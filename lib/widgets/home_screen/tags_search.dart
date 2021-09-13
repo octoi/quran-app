@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:quran/model/suraths.dart';
 import 'package:quran/utils/constants.dart';
 
 enum Tags { all, makkah, madinah, favorite, unfavorite }
@@ -16,10 +18,9 @@ class _TagsSearchState extends State<TagsSearch> {
 
   @override
   Widget build(BuildContext context) {
-    void _changeTag(Tags tag) {
-      setState(() {
-        _selectedTag = tag;
-      });
+    void _changeTag(Tags tag, String searchTag) {
+      setState(() => _selectedTag = tag);
+      Provider.of<Suraths>(context, listen: false).search(searchTag);
     }
 
     return SingleChildScrollView(
@@ -30,27 +31,28 @@ class _TagsSearchState extends State<TagsSearch> {
           Tag(
             title: 'All',
             isSelected: _selectedTag == Tags.all,
-            onTap: () => _changeTag(Tags.all),
+            onTap: () =>
+                _changeTag(Tags.all, ''), // search tag '' which means all tags
           ),
           Tag(
             title: 'makkah',
             isSelected: _selectedTag == Tags.makkah,
-            onTap: () => _changeTag(Tags.makkah),
+            onTap: () => _changeTag(Tags.makkah, 'makkah'),
           ),
           Tag(
             title: 'madinah',
             isSelected: _selectedTag == Tags.madinah,
-            onTap: () => _changeTag(Tags.madinah),
+            onTap: () => _changeTag(Tags.madinah, 'madinah'),
           ),
           Tag(
             title: 'favorite',
             isSelected: _selectedTag == Tags.favorite,
-            onTap: () => _changeTag(Tags.favorite),
+            onTap: () => _changeTag(Tags.favorite, 'favorite'),
           ),
           Tag(
             title: 'unfavorite',
             isSelected: _selectedTag == Tags.unfavorite,
-            onTap: () => _changeTag(Tags.unfavorite),
+            onTap: () => _changeTag(Tags.unfavorite, 'unfavorite'),
           ),
         ],
       ),
