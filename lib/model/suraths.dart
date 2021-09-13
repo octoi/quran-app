@@ -21,9 +21,24 @@ class Surah {
 
 class Suraths with ChangeNotifier {
   List<Surah> _suraths = [];
-  bool haveAnyError = false;
 
-  List<Surah> get suraths => [..._suraths];
+  // utilities
+  bool haveAnyError = false;
+  String searchQuery = '';
+
+  List<Surah> get suraths {
+    if (searchQuery.trim().length == 0) {
+      return [..._suraths];
+    }
+
+    return _suraths.where((surah) {
+      return surah.simpleName.toLowerCase().contains(searchQuery) ||
+          surah.surah.toLowerCase().contains(searchQuery) ||
+          surah.pages.toLowerCase().contains(searchQuery) ||
+          surah.origin.contains(searchQuery) ||
+          surah.verses.toString().toLowerCase().contains(searchQuery);
+    }).toList();
+  }
 
   Future<void> fetchAndSetSurahs() async {
     try {
@@ -36,5 +51,10 @@ class Suraths with ChangeNotifier {
 
     notifyListeners();
     return;
+  }
+
+  void search(String newSearchQuery) {
+    searchQuery = newSearchQuery.toLowerCase();
+    notifyListeners();
   }
 }
