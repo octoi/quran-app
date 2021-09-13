@@ -33,6 +33,16 @@ class Suraths with ChangeNotifier {
       return [..._suraths];
     }
 
+    if (_searchQuery == 'favorite' || _searchQuery == 'unfavorite') {
+      return _suraths
+          .where(
+            (surah) => _searchQuery == 'favorite'
+                ? surah.isFavorite
+                : !surah.isFavorite,
+          )
+          .toList();
+    }
+
     return _suraths.where((surah) {
       return surah.simpleName.toLowerCase().contains(_searchQuery) ||
           surah.surah.toLowerCase().contains(_searchQuery) ||
