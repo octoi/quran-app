@@ -5,7 +5,7 @@ class Surah {
   int id;
   String surah;
   String simpleName; // name in language selected in api
-  String pages;
+  String page;
   String origin;
   int verses;
   bool isFavorite;
@@ -14,7 +14,7 @@ class Surah {
     required this.id,
     required this.surah,
     required this.simpleName,
-    required this.pages,
+    required this.page,
     required this.origin,
     required this.verses,
     this.isFavorite = false,
@@ -46,7 +46,7 @@ class Suraths with ChangeNotifier {
     return _suraths.where((surah) {
       return surah.simpleName.toLowerCase().contains(_searchQuery) ||
           surah.surah.toLowerCase().contains(_searchQuery) ||
-          surah.pages.toLowerCase().contains(_searchQuery) ||
+          surah.page.toLowerCase().contains(_searchQuery) ||
           surah.origin.contains(_searchQuery) ||
           surah.verses.toString().toLowerCase().contains(_searchQuery);
     }).toList();
@@ -77,7 +77,7 @@ class Suraths with ChangeNotifier {
       id: _surah.id,
       surah: _surah.surah,
       simpleName: _surah.simpleName,
-      pages: _surah.pages,
+      page: _surah.page,
       origin: _surah.origin,
       verses: _surah.verses,
       isFavorite: isFavorite,

@@ -18,7 +18,7 @@ Future<List<Surah>> requestAllSurahs() async {
         id: surah['id'],
         surah: surah['name_arabic'],
         simpleName: surah['name_simple'],
-        pages: '1-10',
+        page: '${surah['pages'][0]}',
         origin: surah['revelation_place'],
         verses: surah['verses_count'],
       );
