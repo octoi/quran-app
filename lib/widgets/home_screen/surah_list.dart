@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/model/suraths.dart';
 import 'package:quran/utils/constants.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class SurahList extends StatelessWidget {
   const SurahList({Key? key}) : super(key: key);
@@ -13,7 +14,19 @@ class SurahList extends StatelessWidget {
       future: Provider.of<Suraths>(context, listen: false).fetchAndSetSurahs(),
       builder: (context, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator(color: appGreen));
+          return SkeletonLoader(
+            baseColor: Colors.grey.shade100,
+            highlightColor: appWhite,
+            items: 10,
+            builder: Container(
+              margin: EdgeInsets.symmetric(vertical: 5.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              height: 80,
+            ),
+          );
         } else {
           return Consumer<Suraths>(
             builder: (ctx, surathsData, _) {
