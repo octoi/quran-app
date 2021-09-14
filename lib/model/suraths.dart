@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:quran/api/api.dart';
+import 'package:quran/utils/db.dart';
 
 class Surah {
   int id;
@@ -54,8 +55,14 @@ class Suraths with ChangeNotifier {
 
   Future<void> fetchAndSetSurahs() async {
     try {
-      var surahs = await requestAllSurahs();
-      _suraths = surahs;
+      var surahsFromDatabase = await getDataFromDatabase();
+      _suraths = surahsFromDatabase;
+
+      if (surahsFromDatabase.length == 0) {
+        var surahs = await requestAllSurahs();
+        _suraths = surahs;
+        await saveDataToDatabase(surahs);
+      }
     } catch (e) {
       print(e);
       haveAnyError = true;
