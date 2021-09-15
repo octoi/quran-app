@@ -13,7 +13,8 @@ Future<List<Surah>> getDataFromDatabase() async {
         simpleName: data['simpleName'],
         page: data['page'],
         origin: data['origin'],
-        verses: int.parse(data['verses']),
+        verses: data['verses'],
+        verseCount: int.parse(data['verseCount']),
         isFavorite: data['isFavorite'] == 'true',
       ));
     });
@@ -34,6 +35,7 @@ Future<void> saveDataToDatabase(List<Surah> suraths) async {
       'page': surah.page,
       'origin': surah.origin,
       'verses': surah.verses.toString(),
+      'verseCount': surah.verseCount,
       'isFavorite': surah.isFavorite.toString(),
     });
   });
@@ -47,6 +49,7 @@ Future<void> updateFavoriteInDatabase(Surah surah) async {
     'page': surah.page,
     'origin': surah.origin,
     'verses': surah.verses.toString(),
+    'verseCount': surah.verseCount,
     'isFavorite': surah.isFavorite.toString(),
   });
 }

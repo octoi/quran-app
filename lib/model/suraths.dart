@@ -8,7 +8,8 @@ class Surah {
   String simpleName; // name in language selected in api
   String page;
   String origin;
-  int verses;
+  String verses;
+  int verseCount;
   bool isFavorite;
 
   Surah({
@@ -18,6 +19,7 @@ class Surah {
     required this.page,
     required this.origin,
     required this.verses,
+    required this.verseCount,
     this.isFavorite = false,
   });
 }
@@ -80,7 +82,7 @@ class Suraths with ChangeNotifier {
   void updateFavorite(int id, bool isFavorite) {
     int _surahIdx = _suraths.indexWhere((surah) => surah.id == id);
     Surah _surah = _suraths[_surahIdx];
-    
+
     Surah _updatedSurah = Surah(
       id: _surah.id,
       surah: _surah.surah,
@@ -88,12 +90,13 @@ class Suraths with ChangeNotifier {
       page: _surah.page,
       origin: _surah.origin,
       verses: _surah.verses,
+      verseCount: _surah.verseCount,
       isFavorite: isFavorite,
     );
 
     _suraths[_surahIdx] = _updatedSurah;
     notifyListeners();
-    
+
     updateFavoriteInDatabase(_updatedSurah);
   }
 }

@@ -20,11 +20,28 @@ Future<List<Surah>> requestAllSurahs() async {
         simpleName: surah['name_simple'],
         page: '${surah['pages'][0]}',
         origin: surah['revelation_place'],
-        verses: surah['verses_count'],
+        verses: '',
+        verseCount: surah['verses_count'],
       );
       _surahs.add(newSurah);
     });
   }
 
   return _surahs;
+}
+
+Future<String> requestOneSurah(int id) async {
+  String _ayaths = '';
+
+  Uri url = Uri.parse('$originUrl/quran/verses/indopak?chapter_number=$id');
+  var response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    var decodedData = jsonDecode(response.body);
+    decodedData['verses'].forEach((verse) {
+      _ayaths += '${verse['text_indopak']}(${verse['id']})';
+    });
+  }
+
+  return _ayaths;
 }

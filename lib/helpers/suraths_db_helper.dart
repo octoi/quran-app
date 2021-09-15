@@ -8,7 +8,7 @@ class SurathsDBHelper {
       path.join(dbPath, 'places.db'),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE suraths(id TEXT PRIMARY KEY, surah TEXT, simpleName TEXT,page TEXT, origin TEXT, verses TEXT, isFavorite TEXT)',
+          'CREATE TABLE suraths(id TEXT PRIMARY KEY, surah TEXT, simpleName TEXT,page TEXT, origin TEXT, verses TEXT, verseCount TEXT, isFavorite TEXT)',
         );
       },
       version: 1,

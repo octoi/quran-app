@@ -94,7 +94,7 @@ class SuraCard extends StatelessWidget {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    'page: ${surah.page}, verses: ${surah.verses}',
+                    'page: ${surah.page}, verses: ${surah.verseCount}',
                     style: GoogleFonts.nunito(
                       color: appGray,
                       fontSize: 15.0,
