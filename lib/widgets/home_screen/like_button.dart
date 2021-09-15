@@ -18,7 +18,7 @@ class _LikeButtonState extends State<LikeButton> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    surah = widget.surah;
+    surah = Provider.of<Suraths>(context).getOneSurah(widget.surah.id);
   }
 
   @override

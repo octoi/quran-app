@@ -99,4 +99,8 @@ class Suraths with ChangeNotifier {
 
     updateFavoriteInDatabase(_updatedSurah);
   }
+
+  Surah getOneSurah(int id) {
+    return _suraths.firstWhere((surah) => surah.id == id);
+  }
 }
