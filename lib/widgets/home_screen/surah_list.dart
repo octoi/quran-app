@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/model/suraths.dart';
+import 'package:quran/screens/surah_screen.dart';
 import 'package:quran/utils/constants.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 
@@ -65,9 +67,12 @@ class SuraCard extends StatelessWidget {
       elevation: 0.5,
       borderRadius: BorderRadius.circular(10.0),
       child: GestureDetector(
-        onTap: () {
-          print(surah.surah);
-        },
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (BuildContext context) {
+            return SurahScreen(surah: surah);
+          }),
+        ),
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5.0),
           decoration: BoxDecoration(
