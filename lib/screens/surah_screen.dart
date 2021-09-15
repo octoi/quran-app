@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/model/suraths.dart';
 import 'package:quran/utils/constants.dart';
+import 'package:quran/widgets/home_screen/like_button.dart';
 
 class SurahScreen extends StatelessWidget {
   final Surah surah;
@@ -15,14 +16,25 @@ class SurahScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: appWhite,
         elevation: 0.0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: appGreen,
+          ),
+        ),
+        centerTitle: true,
         title: Text(
           surah.surah,
           style: GoogleFonts.nunito(
-            color: appDark,
+            color: appGreen,
             fontSize: 26.0,
             fontWeight: FontWeight.w600,
           ),
         ),
+        actions: [
+          LikeButton(surah: surah),
+        ],
       ),
     );
   }

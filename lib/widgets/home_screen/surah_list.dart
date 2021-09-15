@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:quran/model/suraths.dart';
 import 'package:quran/screens/surah_screen.dart';
 import 'package:quran/utils/constants.dart';
+import 'package:quran/widgets/home_screen/like_button.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 
 class SurahList extends StatelessWidget {
@@ -55,14 +56,6 @@ class SuraCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void updateFavorite() {
-      bool _isFavorite = !surah.isFavorite;
-      Provider.of<Suraths>(context, listen: false).updateFavorite(
-        surah.id,
-        _isFavorite,
-      );
-    }
-
     return Material(
       elevation: 0.5,
       borderRadius: BorderRadius.circular(10.0),
@@ -107,14 +100,7 @@ class SuraCard extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                color: appGreen,
-                iconSize: 30.0,
-                icon: Icon(
-                  surah.isFavorite ? Icons.favorite : Icons.favorite_outline,
-                ),
-                onPressed: updateFavorite,
-              ),
+              LikeButton(surah: surah),
             ],
           ),
         ),
