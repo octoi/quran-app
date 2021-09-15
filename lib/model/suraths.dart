@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:quran/api/api.dart';
-import 'package:quran/utils/db.dart';
+import 'package:quran/utils/suraths_db.dart';
 
 class Surah {
   int id;
@@ -80,7 +80,8 @@ class Suraths with ChangeNotifier {
   void updateFavorite(int id, bool isFavorite) {
     int _surahIdx = _suraths.indexWhere((surah) => surah.id == id);
     Surah _surah = _suraths[_surahIdx];
-    _suraths[_surahIdx] = Surah(
+    
+    Surah _updatedSurah = Surah(
       id: _surah.id,
       surah: _surah.surah,
       simpleName: _surah.simpleName,
@@ -90,6 +91,9 @@ class Suraths with ChangeNotifier {
       isFavorite: isFavorite,
     );
 
+    _suraths[_surahIdx] = _updatedSurah;
     notifyListeners();
+    
+    updateFavoriteInDatabase(_updatedSurah);
   }
 }
