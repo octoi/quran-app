@@ -53,12 +53,54 @@ class SurahScreen extends StatelessWidget {
             }
             return Consumer<Suraths>(
               builder: (BuildContext context, suraths, _) {
-                return Text(
-                  suraths.getOneSurah(surah.id).verses,
-                  style: GoogleFonts.nunito(
-                    color: appDark,
-                    fontSize: 20.0,
-                  ),
+                Surah _surah = suraths.getOneSurah(surah.id);
+
+                List<String> _ayaths = _surah.verses.split(',');
+
+                List<Widget> renderAyaths() {
+                  List<Widget> _widgets = [];
+
+                  for (int idx = 1; idx < _ayaths.length - 1; idx++) {
+                    _widgets.add(Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          padding: EdgeInsets.all(10.0),
+                          width: double.infinity,
+                          child: Wrap(
+                            direction: Axis.horizontal,
+                            children: [
+                              Text(
+                                _ayaths[idx].trim(),
+                                style: GoogleFonts.nunito(
+                                  color: appDark,
+                                  fontSize: 22.0,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                              Text(
+                                '(${idx})',
+                                style: GoogleFonts.nunito(
+                                  color: appGreen,
+                                  fontSize: 22.0,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(),
+                      ],
+                    ));
+                  }
+
+                  return _widgets;
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: renderAyaths(),
                 );
               },
             );

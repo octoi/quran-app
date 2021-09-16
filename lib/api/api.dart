@@ -39,7 +39,7 @@ Future<String> requestOneSurah(int id) async {
   if (response.statusCode == 200) {
     var decodedData = jsonDecode(response.body);
     decodedData['verses'].forEach((verse) {
-      _ayaths += '${verse['text_indopak']}(${verse['id']})';
+      _ayaths += '${verse['text_indopak']},';
     });
   }
 
