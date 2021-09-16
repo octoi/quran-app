@@ -97,10 +97,27 @@ class Suraths with ChangeNotifier {
     _suraths[_surahIdx] = _updatedSurah;
     notifyListeners();
 
-    updateFavoriteInDatabase(_updatedSurah);
+    updateInDatabase(_updatedSurah);
   }
 
   Surah getOneSurah(int id) {
     return _suraths.firstWhere((surah) => surah.id == id);
+  }
+
+  Future<void> fetchAndSetSurayAyaths(Surah surah) async {
+    try {
+      if (surah.verses.isNotEmpty) return;
+
+      String surahAyaths = await requestOneSurah(surah.id);
+      surah.verses = surahAyaths;
+      updateInDatabase(surah);
+    } catch (e) {
+      print("xxxxxxxxxxxxxxxxxxxxxxxx");
+      print(e);
+      haveAnyError = true;
+    }
+
+    notifyListeners();
+    return;
   }
 }
