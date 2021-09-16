@@ -41,7 +41,7 @@ Future<void> saveDataToDatabase(List<Surah> suraths) async {
   });
 }
 
-Future<void> updateFavoriteInDatabase(Surah surah) async {
+Future<void> updateInDatabase(Surah surah) async {
   SurathsDBHelper.update({
     'id': surah.id,
     'surah': surah.surah,
